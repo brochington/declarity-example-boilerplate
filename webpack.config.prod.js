@@ -42,12 +42,6 @@ module.exports = {
         fallback: [
             path.resolve('./node_modules')
         ],
-        alias: {
-            // "react": path.join(__dirname, 'node_modules', 'react'),
-            // "react-dom": path.join(__dirname, 'node_modules', 'react-dom'),
-            // "babylonjs": path.join(__dirname, 'node_modules', 'babylonjs'),
-            // "immutable": path.join(__dirname, 'node_modules', 'immutable')
-        },
         extensions: ['', '.js']
     }
 }
