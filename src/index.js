@@ -15,8 +15,16 @@ class Rect extends Entity {
         context.clearRect(45, 45, 60, 60);
         context.strokeRect(50, 50, 50, 50);
     }
-}
 
+    update = ({nextProps}) => {
+        console.log('nextProps', nextProps);
+        const {context, count} = nextProps;
+
+        context.fillRect(25, 25, 100, 100);
+        context.clearRect(45, 45, 60, 60);
+        context.strokeRect(count, 50, 50, 50);
+    }
+}
 
 class Canvas extends Entity {
     create = () => {
@@ -33,12 +41,13 @@ class Canvas extends Entity {
         }
     }
 
-    render = ({state}) => {
+    render = ({state, props}) => {
         return [
             <Rect
                 key="rect-1"
                 color="red"
                 context={state.context}
+                count={props.count}
                 systems={[]}
             />
         ];
@@ -47,8 +56,22 @@ class Canvas extends Entity {
 
 
 class App extends Entity {
-    render = () => {
-        return <Canvas key="rootCanvas" />
+    actions = {
+        updateCount: (state, actions) => {
+            return {count: state().count + 1};
+        }
+    }
+
+    create = () => {
+        return {count: 1}
+    }
+
+    didCreate = ({actions}) => {
+        actions.updateCount();
+        // setInterval(actions.updateCount, 1000);
+    }
+    render = ({state}) => {
+        return <Canvas key="rootCanvas" count={state.count}/>
     }
 }
 
